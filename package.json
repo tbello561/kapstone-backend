@@ -1,0 +1,14 @@
+{
+  "name": "kapstone-backend",
+  "version": "1.0.0",
+  "description": "kapstone-backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tommy bello",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

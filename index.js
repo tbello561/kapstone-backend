@@ -23,7 +23,7 @@ let db = {
     {
       title: "Jumpin Jacks",
       workout: "cardio",
-      createdAt: new Date(),
+      dueDate: new Date(),
       id: nanoid(),
       completed: false,
     },
@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/todos", (req, res) => {
-  res.json(db);
+  res.json(db.todos);
 });
 
 app.post("/todos", (req, res) => {
@@ -53,7 +53,7 @@ app.post("/todos", (req, res) => {
   const newTodo = {
     title: req.body.title,
     workout: req.body.workout,
-    createdAt: new Date(),
+    dueDate: new Date(),
     id: nanoid(),
     completed: false,
   };

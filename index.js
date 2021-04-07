@@ -93,9 +93,9 @@ let db = {
   ],
   users: [
     {
-      username: "",
-      displayName: "",
-      password: "",
+      username: "Mr. T",
+      displayName: "MT",
+      password: "PAIN",
       id: nanoid(),
     },
   ],
@@ -119,6 +119,66 @@ app.post("/todos", (req, res) => {
   };
   db.todos.push(newTodo);
   res.status(201).json(newTodo);
+});
+
+app.patch("/todos/:id", (req, res) => {
+  const todoIndex = db.todos.findIndex((todo) => todo.id === req.params.id);
+  if (todoIndex === -1) {
+    res.status(400).send("Bad request, this todo does not exist");
+  }
+  db.todos[todoIndex] = {
+    ...db.todos[todoIndex],
+    ...req.body,
+    completed: !db.todos[todoIndex].completed,
+    id: req.params.id,
+  };
+  res.json("Patch successful!");
+});
+
+app.delete("/todos/:id", (req, res) => {
+  const todoIndex = db.todos.findIndex((todo) => todo.id === req.params.id);
+  if (todoIndex === -1) {
+    res.status(400).send("Bad request, this todo does not exist");
+  }
+  db.todos = db.todos.filter((todo) => todo.id !== req.params.id);
+  res.json("Delete successful!");
+});
+
+//users endpoints----------------------------------------------------------------------
+
+app.post("/users", (req, res) => {
+  //   const userIndex = db.users.findIndex((user) => user.id === req.params.id);
+  //   if (userIndex === -1) {
+  //     res.status(400).send("Bad request, this user already exist");
+  //   }
+  const newUser = {
+    username: req.body.username,
+    displayName: req.body.displayName,
+    password: req.body.password,
+    id: nanoid(),
+  };
+  db.users.push(newUser);
+  res.status(201).json(newUser);
+});
+
+app.post("/auth/login", (req, res) => {
+  const userIndex = db.users.findIndex((user) => user.id === req.params.id);
+  if (userIndex === -1) {
+    res.status(400).send("Bad request, this user does not exist");
+  }
+  const newUser = {
+    username: "",
+    password: "",
+  };
+  res.status(201).json(newUser);
+});
+
+app.get("/auth/logout", (req, res) => {
+  res.json(db.users);
+});
+
+app.get("/users", (req, res) => {
+  res.json(db.users);
 });
 
 app.listen(port, () => {

@@ -22,7 +22,70 @@ let db = {
   todos: [
     {
       title: "Jumpin Jacks",
-      workout: "cardio",
+      workout: "Cardio",
+      dueDate: new Date(),
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Push Ups",
+      workout: "Upper Body",
+      dueDate: new Date(),
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Sit Ups",
+      workout: "Upper Body",
+      dueDate: new Date(),
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Run Laps",
+      workout: "Cardio",
+      dueDate: new Date(),
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Squats",
+      workout: "Lower Body",
+      dueDate: new Date(),
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Hamstring Stretch",
+      workout: "Stretches",
+      dueDate: new Date(),
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Hip Flexor",
+      workout: "Stretches",
+      dueDate: new Date(),
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Chest and Shoulder Stretch",
+      workout: "Stretches",
+      dueDate: new Date(),
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Calf Raises",
+      workout: "Lower Body",
+      dueDate: new Date(),
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Bridges",
+      workout: "Lower Body",
       dueDate: new Date(),
       id: nanoid(),
       completed: false,
@@ -30,16 +93,13 @@ let db = {
   ],
   users: [
     {
-      username: "Mr. T",
+      username: "",
+      displayName: "",
       password: "",
       id: nanoid(),
     },
   ],
 };
-
-app.get("/", (req, res) => {
-  res.send("testing 123...");
-});
 
 app.get("/todos", (req, res) => {
   res.json(db.todos);

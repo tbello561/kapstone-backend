@@ -1,9 +1,14 @@
 const express = require("express");
 const { nanoid } = require("nanoid");
 const app = express();
+const morgan = require("morgan");
+const jwt = require("jsonwebtoken");
 const port = 3000;
 
+const secret = "richardsimmons";
+
 app.use(express.json());
+app.use(morgan(":method :url :response-time"));
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -93,13 +98,36 @@ const db = {
   ],
   users: [
     {
-      username: "Mr. T",
-      displayName: "MT",
-      password: "PAIN",
+      username: "tommy",
+      displayName: "tommy",
+      password: "tommy",
       id: nanoid(),
+      token: "",
+    },
+    {
+      username: "test",
+      displayName: "test",
+      password: "test",
+      id: nanoid(),
+      token: "",
     },
   ],
 };
+
+function checkAuth(req, res, next) {
+  try {
+    const token = req.headers.authorization?.slice(7) || "";
+    var decoded = jwt.verify(token, secret);
+    console.log(decoded);
+    if (decoded) {
+      next();
+    } else {
+      res.sendStatus(401);
+    }
+  } catch (err) {
+    res.status(401).send(err.message);
+  }
+}
 
 app.get("/todos", (req, res) => {
   res.json(db.todos);
@@ -156,25 +184,41 @@ app.post("/users", (req, res) => {
     displayName: req.body.displayName,
     password: req.body.password,
     id: nanoid(),
+    token: "",
   };
   db.users.push(newUser);
   res.status(201).json(newUser);
 });
 
-app.post("/auth/login", (req, res) => {
-  const userIndex = db.users.findIndex((user) => user.id === req.params.id);
-  if (userIndex === -1) {
-    res.status(400).send("Bad request, this user does not exist");
+app.post("/users/login", (req, res) => {
+  const { username, password } = req.body;
+  const user = db.users.find((u) => {
+    return u.username === username;
+  });
+  if (user.password === password) {
+    const index = db.users.findIndex((u) => {
+      return u.id === user.id;
+    });
+    const token = jwt.sign({}, secret);
+    db.users[index].token = token;
+    res.send(token);
   }
-  const newUser = {
-    username: "",
-    password: "",
-  };
-  res.status(201).json(newUser);
+  res.status(401);
 });
 
-app.get("/auth/logout", (req, res) => {
-  res.json(db.users);
+app.get("/users/logout", (req, res) => {
+  const { username, password } = req.body;
+  const user = db.users.find((u) => {
+    return u.username === username;
+  });
+  if (user.password === password) {
+    const index = db.users.findIndex((u) => {
+      return u.id === user.id;
+    });
+    db.users[index].token = "";
+    res.send(db.users);
+  }
+  res.status(401);
 });
 
 app.get("/users", (req, res) => {

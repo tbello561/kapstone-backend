@@ -14,7 +14,7 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   res.header(
     "Access-Control-Allow-Methods",
@@ -27,71 +27,61 @@ const db = {
   todos: [
     {
       title: "Jumpin Jacks",
-      workout: "Cardio",
-      dueDate: new Date().toLocaleString(),
+      dueDate: "monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Push Ups",
-      workout: "Upper Body",
-      dueDate: new Date().toLocaleString(),
+      dueDate: "monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Sit Ups",
-      workout: "Upper Body",
-      dueDate: new Date().toLocaleString(),
+      dueDate: "monday",
       id: nanoid(),
       completed: false,
     },
     {
-      title: "Run Laps",
-      workout: "Cardio",
-      dueDate: new Date().toLocaleString(),
+      title: "Lunges",
+      dueDate: "monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Squats",
-      workout: "Lower Body",
-      dueDate: new Date().toLocaleString(),
+      dueDate: "monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Hamstring Stretch",
-      workout: "Stretches",
-      dueDate: new Date().toLocaleString(),
+      dueDate: "monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Hip Flexor",
-      workout: "Stretches",
-      dueDate: new Date().toLocaleString(),
+      dueDate: "monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Chest and Shoulder Stretch",
-      workout: "Stretches",
-      dueDate: new Date().toLocaleString(),
+      dueDate: "wednesday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Calf Raises",
-      workout: "Lower Body",
-      dueDate: new Date().toLocaleString(),
+      dueDate: "tuesday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Bridges",
-      workout: "Lower Body",
-      dueDate: new Date().toLocaleString(),
+      dueDate: "tuesday",
       id: nanoid(),
       completed: false,
     },
@@ -140,8 +130,7 @@ app.post("/todos", (req, res) => {
   }
   const newTodo = {
     title: req.body.title,
-    workout: req.body.workout,
-    dueDate: new Date().toLocaleString(),
+    dueDate: "",
     id: nanoid(),
     completed: false,
   };
@@ -201,24 +190,26 @@ app.post("/users/login", (req, res) => {
     });
     const token = jwt.sign({}, secret);
     db.users[index].token = token;
-    res.send(token);
+    res.json(user);
   }
   res.status(401);
 });
 
 app.get("/users/logout", (req, res) => {
-  const { username, password } = req.body;
+  //   const { username, password } = req.body;
   const user = db.users.find((u) => {
-    return u.username === username;
+    if (u.id === req.params.id) {
+      return true;
+    }
   });
-  if (user.password === password) {
-    const index = db.users.findIndex((u) => {
-      return u.id === user.id;
-    });
-    db.users[index].token = "";
-    res.send(db.users);
-  }
-  res.status(401);
+  user.token = "";
+  //   if (user.password === password) {
+  //     const index = db.users.findIndex((u) => {
+  //       return u.id === user.id;
+  //     });
+  res.send(db.users);
+  //   }
+  //   res.status(401);
 });
 
 app.get("/users", (req, res) => {

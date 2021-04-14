@@ -27,61 +27,61 @@ const db = {
   todos: [
     {
       title: "Jumpin Jacks",
-      dueDate: "monday",
+      dueDate: "Monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Push Ups",
-      dueDate: "monday",
+      dueDate: "Monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Sit Ups",
-      dueDate: "monday",
+      dueDate: "Monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Lunges",
-      dueDate: "monday",
+      dueDate: "Monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Squats",
-      dueDate: "monday",
+      dueDate: "Monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Hamstring Stretch",
-      dueDate: "monday",
+      dueDate: "Monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Hip Flexor",
-      dueDate: "monday",
+      dueDate: "Monday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Chest and Shoulder Stretch",
-      dueDate: "wednesday",
+      dueDate: "Wednesday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Calf Raises",
-      dueDate: "tuesday",
+      dueDate: "Tuesday",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Bridges",
-      dueDate: "tuesday",
+      dueDate: "Tuesday",
       id: nanoid(),
       completed: false,
     },
@@ -195,20 +195,25 @@ app.post("/users/login", (req, res) => {
   res.status(401);
 });
 
-app.get("/users/logout", (req, res) => {
-  //   const { username, password } = req.body;
-  const user = db.users.find((u) => {
-    if (u.id === req.params.id) {
+app.get("/users/logout/:token", (req, res) => {
+  const currentUser = db.users.find((u) => {
+    if (u.token === req.params.token) {
       return true;
+    } else {
+      return false;
     }
   });
-  user.token = "";
+  if (!currentUser) {
+    res.status(404).send("User Not Found");
+  }
+  console.log("USER", currentUser);
+  currentUser.token = "";
+  res.send(currentUser);
   //   if (user.password === password) {
   //     const index = db.users.findIndex((u) => {
   //       return u.id === user.id;
   //     });
-  res.send(db.users);
-  //   }
+  // }
   //   res.status(401);
 });
 

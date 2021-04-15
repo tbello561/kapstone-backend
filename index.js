@@ -26,7 +26,7 @@ app.use(function (req, res, next) {
 const db = {
   todos: [
     {
-      title: "Jumpin Jacks",
+      title: "Jumping Jacks",
       dueDate: "Monday",
       id: nanoid(),
       completed: false,
@@ -82,6 +82,60 @@ const db = {
     {
       title: "Bridges",
       dueDate: "Tuesday",
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Crunches",
+      dueDate: "Tuesday",
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Bicycle Kicks",
+      dueDate: "Tuesday",
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Planks",
+      dueDate: "Tuesday",
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Squats",
+      dueDate: "Friday",
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Burpees",
+      dueDate: "Wednesday",
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Calf Raises",
+      dueDate: "Wednesday",
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Squats",
+      dueDate: "Wednesday",
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Dips",
+      dueDate: "Wednesday",
+      id: nanoid(),
+      completed: false,
+    },
+    {
+      title: "Sit Ups",
+      dueDate: "Friday",
       id: nanoid(),
       completed: false,
     },

@@ -124,13 +124,13 @@ app.get("/todos", (req, res) => {
 });
 
 app.post("/todos", (req, res) => {
-  const todoIndex = db.todos.findIndex((todo) => todo.id === req.params.id);
-  if (todoIndex === -1) {
-    res.status(400).send("Bad request, this todo does not exist");
-  }
+  //   const todoIndex = db.todos.findIndex((todo) => todo.id === req.params.id);
+  //   if (todoIndex === -1) {
+  //     res.status(400).send("Bad request, this todo does not exist");
+  //   }
   const newTodo = {
     title: req.body.title,
-    dueDate: "",
+    dueDate: req.body.dueDate,
     id: nanoid(),
     completed: false,
   };
@@ -206,15 +206,8 @@ app.get("/users/logout/:token", (req, res) => {
   if (!currentUser) {
     res.status(404).send("User Not Found");
   }
-  console.log("USER", currentUser);
   currentUser.token = "";
   res.send(currentUser);
-  //   if (user.password === password) {
-  //     const index = db.users.findIndex((u) => {
-  //       return u.id === user.id;
-  //     });
-  // }
-  //   res.status(401);
 });
 
 app.get("/users", (req, res) => {

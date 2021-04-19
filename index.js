@@ -4,6 +4,11 @@ const app = express();
 const morgan = require("morgan");
 const jwt = require("jsonwebtoken");
 const port = 3000;
+const mongoose = require("mongoose");
+mongoose.connect(
+  "mongodb+srv://group6:group6@cluster0.jovl6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
 
 const secret = "richardsimmons";
 
@@ -28,270 +33,315 @@ const db = {
     {
       title: "Jumping Jacks",
       dueDate: "Monday",
+      workout: "cardio",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Knee Push ups",
       dueDate: "Monday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Sit Ups",
       dueDate: "Monday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Stationary Lunges",
       dueDate: "Monday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Squats",
       dueDate: "Monday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Running in Place",
       dueDate: "Monday",
+      workout: "cardio",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Hip Flexor",
       dueDate: "Monday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Calf Raises",
       dueDate: "Monday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Bicep Curls",
       dueDate: "Monday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Wiper Crunch",
       dueDate: "Monday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Calf Raises",
       dueDate: "Tuesday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Single Leg Bridge",
       dueDate: "Tuesday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Side-lying Hip Abduction",
       dueDate: "Tuesday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Bicycle Kicks",
       dueDate: "Tuesday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Forearm Planks",
       dueDate: "Tuesday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Side Lunges",
       dueDate: "Wednesday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Burpees",
       dueDate: "Wednesday",
+      workout: "cardio",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Calf Raises",
       dueDate: "Wednesday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Squats",
       dueDate: "Wednesday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Tricep Dips",
       dueDate: "Wednesday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Pike-Push ups",
       dueDate: "Wednesday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Russian Twist",
       dueDate: "Wednesday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
-      title: "Overhead -Press",
+      title: "Overhead Press",
       dueDate: "Wednesday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Stationary Lunges",
       dueDate: "Wednesday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Bicycle Kicks",
       dueDate: "Wednesday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Wiper Crunch",
       dueDate: "Thursday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Bicep-Curls",
       dueDate: "Thursday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Reverse Crunch",
       dueDate: "Thursday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Hip flexor",
       dueDate: "Thursday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Sit Ups",
       dueDate: "Thursday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Bicycle Kicks",
       dueDate: "Thursday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Pike Push ups",
       dueDate: "Thursday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Lateral Raises",
       dueDate: "Thursday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Jumping Jacks",
       dueDate: "Thursday",
+      workout: "cardio",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Stationary Lunges",
       dueDate: "Thursday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Sit Ups",
       dueDate: "Friday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Squats",
       dueDate: "Friday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Knee push ups",
       dueDate: "Friday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Bicep-Curls",
       dueDate: "Friday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Tricep Dips",
       dueDate: "Friday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
-      title: "Overhead-Press",
+      title: "Overhead Press",
       dueDate: "Friday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Burpees",
       dueDate: "Friday",
+      workout: "cardio",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Jumprope",
       dueDate: "Friday",
+      workout: "cardio",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Forearm Planks",
       dueDate: "Friday",
+      workout: "upperbody",
       id: nanoid(),
       completed: false,
     },
     {
       title: "Russian Twist",
       dueDate: "Friday",
+      workout: "lowerbody",
       id: nanoid(),
       completed: false,
     },
@@ -301,6 +351,9 @@ const db = {
       username: "tommy",
       displayName: "tommy",
       password: "tommy",
+      height: "",
+      weight: "",
+      age: "",
       id: nanoid(),
       token: "",
     },
@@ -308,6 +361,9 @@ const db = {
       username: "test",
       displayName: "test",
       password: "test",
+      height: "",
+      weight: "",
+      age: "",
       id: nanoid(),
       token: "",
     },
@@ -330,7 +386,40 @@ function checkAuth(req, res, next) {
 }
 
 app.get("/todos", (req, res) => {
-  res.json(db.todos);
+  const { search, sortBy, filterBy } = req.query;
+  console.log(search, filterBy, sortBy);
+
+  let todos = db.todos;
+  if (search) {
+    todos = todos.filter((todo) => {
+      return todo.workout.includes(search);
+    });
+  }
+
+  if (filterBy) {
+    if (filterBy === "completed") {
+      todos = todos.filter((todo) => {
+        return todo.completed;
+      });
+    } else {
+      todos = todos.filter((todo) => {
+        return !todo.completed;
+      });
+    }
+  }
+
+  if (sortBy) {
+    todos = todos.sort((a, b) => {
+      const x = a[sortBy].toLowerCase() < b[sortBy].toLowerCase();
+      if (x) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+  }
+
+  res.json(todos);
 });
 
 app.post("/todos", (req, res) => {
@@ -382,6 +471,9 @@ app.post("/users", (req, res) => {
     username: req.body.username,
     displayName: req.body.displayName,
     password: req.body.password,
+    height: "",
+    weight: "",
+    age: "",
     id: nanoid(),
     token: "",
   };
@@ -421,6 +513,22 @@ app.get("/users/logout/:token", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
+  res.json(db.users);
+});
+
+app.patch("/users/:id", (req, res) => {
+  const userIndex = db.users.findIndex((users) => users.id === req.params.id);
+  if (userIndex === -1) {
+    res.status(400).send("Bad request, this user does not exist");
+  }
+  db.users[userIndex] = {
+    ...db.users[userIndex],
+    ...req.body,
+    height: req.body,
+    weight: req.body,
+    age: req.body,
+    // id: req.params.id,
+  };
   res.json(db.users);
 });
 

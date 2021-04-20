@@ -4,11 +4,6 @@ const app = express();
 const morgan = require("morgan");
 const jwt = require("jsonwebtoken");
 const port = 3000;
-const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb+srv://group6:group6@cluster0.jovl6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
 
 const secret = "richardsimmons";
 
@@ -521,15 +516,16 @@ app.patch("/users/:id", (req, res) => {
   if (userIndex === -1) {
     res.status(400).send("Bad request, this user does not exist");
   }
+
   db.users[userIndex] = {
     ...db.users[userIndex],
     ...req.body,
-    height: req.body,
-    weight: req.body,
-    age: req.body,
-    // id: req.params.id,
+    height: req.body.height,
+    weight: Number(req.body.weight),
+    age: Number(req.body.age),
+    id: req.params.id,
   };
-  res.json(db.users);
+  res.json(db.users[userIndex]);
 });
 
 app.listen(port, () => {
